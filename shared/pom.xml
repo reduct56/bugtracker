@@ -10,27 +10,12 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>frontend</artifactId>
+    <artifactId>shared</artifactId>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
-    <dependencies>
-
-        <dependency>
-            <groupId>edu.pet</groupId>
-            <artifactId>shared</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>annotationProcessor</scope>
-        </dependency>
-    </dependencies>
 
 </project>

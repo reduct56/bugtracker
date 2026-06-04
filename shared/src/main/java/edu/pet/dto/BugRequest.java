@@ -9,4 +9,4 @@ public record BugRequest(
         String info,
         Priority priority,
         State state
-) {}
+) { }
