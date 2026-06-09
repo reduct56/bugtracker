@@ -1,4 +1,4 @@
-package edu.pet.sevice;
+package edu.pet.service;
 
 import edu.pet.entity.Bug;
 import edu.pet.dto.BugRequest;
