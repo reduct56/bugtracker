@@ -33,7 +33,7 @@ public class BugTrackerController {
         ).toList();
     }
 
-    @GetMapping("/{id}") // используем PathVariable а не RequestParam - RESTful
+    @GetMapping("/{id}") // PathVariable а не RequestParam - RESTful
     public BugResponse getById(@PathVariable("id") Long id) {
         Bug bug = bs.getBugById(id);
         return BugMapper.toResponse(bug);

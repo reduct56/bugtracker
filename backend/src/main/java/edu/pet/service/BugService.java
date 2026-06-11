@@ -26,14 +26,14 @@ public class BugService {
     }
 
     public Bug markDone(Long id) {
-        Bug bug = bugRepository.getReferenceById(id);
+        Bug bug = getBugById(id);
         bug.setState(State.CLOSED);
-        bugRepository.save(bug); // главное не забыть сохранить
+        bugRepository.save(bug);
         return bug;
     }
 
     public Bug getBugById(long id) {
-        return bugRepository.getReferenceById(id); // есть еще deprecated getById и getOne :D
+        return bugRepository.findByIdOrThrow(id);
     }
 
     public List<Bug> getAll() {
