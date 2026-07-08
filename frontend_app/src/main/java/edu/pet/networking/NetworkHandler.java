@@ -35,7 +35,7 @@ public class NetworkHandler {
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             result = response.body();
         } catch (IOException | InterruptedException e) {
-            System.out.printf("Caught %s! More info:\n\t%s\n", e, e.getLocalizedMessage());
+            System.out.printf("Caught %s! More info:\n\t%s\n", e, e.getMessage());
         }
         return result;
     }
@@ -45,6 +45,22 @@ public class NetworkHandler {
                 .uri(URI.create(serverURI + specificEndpoint + id))
                 .GET()
                 .header(headerType, headerBody)
+                .build();
+        String result = "";
+        try {
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            result = response.body();
+        } catch (IOException | InterruptedException e) {
+            System.out.printf("Caught %s! More info:\n\t%s\n", e, e.getLocalizedMessage());
+        }
+        return result;
+    }
+
+    public String markDone(Long id) {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(serverURI + specificEndpoint + id))
+                .header(headerType, headerBody)
+                .method("PATCH", HttpRequest.BodyPublishers.noBody())
                 .build();
         String result = "";
         try {

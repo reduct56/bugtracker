@@ -23,7 +23,7 @@
     <modules>
         <module>shared</module>
         <module>backend</module>
-        <module>frontend</module>
+        <module>frontend_app</module>
     </modules>
 
     <scm>
