@@ -32,6 +32,13 @@ public class BugService {
         return bug;
     }
 
+    public Bug markOpen(Long id) {
+        Bug bug = getBugById(id);
+        bug.setState(State.OPEN);
+        bugRepository.save(bug);
+        return bug;
+    }
+
     public Bug getBugById(long id) {
         return bugRepository.findByIdOrThrow(id);
     }
