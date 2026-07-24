@@ -16,7 +16,7 @@ public class NetworkHandler {
     private final String headerType = "Content-Type";
     private final String headerBody = "application/json";
 
-    private final String postBody = "{\"title\":\"{title}\",\"info\":\"{info}\",\"priority\":\"{priority}\",\"state\":\"state\"}";
+    // private final String postBody = "{\"title\":\"{title}\",\"info\":\"{info}\",\"priority\":\"{priority}\",\"state\":\"state\"}";
 
     public NetworkHandler(String serverURI) {
         this.serverURI = URI.create(serverURI);
@@ -56,11 +56,27 @@ public class NetworkHandler {
         return result;
     }
 
-    public String markDone(Long id) {
+    public String markClose(Long id) {
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(serverURI + specificEndpoint + id))
+                .uri(URI.create(serverURI + specificEndpoint + id + "/close"))
                 .header(headerType, headerBody)
-                .method("PATCH", HttpRequest.BodyPublishers.noBody())
+                .method("POST", HttpRequest.BodyPublishers.noBody())
+                .build();
+        String result = "";
+        try {
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            result = response.body();
+        } catch (IOException | InterruptedException e) {
+            System.out.printf("Caught %s! More info:\n\t%s\n", e, e.getLocalizedMessage());
+        }
+        return result;
+    }
+
+    public String markOpen(Long id) {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(serverURI + specificEndpoint + id + "/open"))
+                .header(headerType, headerBody)
+                .method("POST", HttpRequest.BodyPublishers.noBody())
                 .build();
         String result = "";
         try {

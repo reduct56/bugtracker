@@ -39,15 +39,15 @@ public class BugTrackerController {
         return BugMapper.toResponse(bug);
     }
 
-    @PostMapping("/{id}")
-    public BugResponse markDone(@PathVariable("id") Long id) {
-        Bug bug = bs.markDone(id);
+    @PostMapping("/{id}/close")
+    public BugResponse markClose(@PathVariable("id") Long id) {
+        Bug bug = bs.markClose(id);
         return BugMapper.toResponse(bug);
     }
 
-    @PostMapping("/{id}")
+    @PostMapping("/{id}/open")
     public BugResponse markOpen(@PathVariable("id") Long id) {
-        Bug bug = bs.markDone(id);
+        Bug bug = bs.markOpen(id);
         return BugMapper.toResponse(bug);
     }
 }

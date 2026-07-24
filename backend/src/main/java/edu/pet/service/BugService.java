@@ -25,7 +25,7 @@ public class BugService {
         return bug;
     }
 
-    public Bug markDone(Long id) {
+    public Bug markClose(Long id) {
         Bug bug = getBugById(id);
         bug.setState(State.CLOSED);
         bugRepository.save(bug);
