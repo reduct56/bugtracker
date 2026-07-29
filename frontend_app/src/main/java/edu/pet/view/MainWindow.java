@@ -16,13 +16,15 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class MainWindow {
+    private static final Logger logger = LoggerFactory.getLogger(MainWindow.class);
+
     private final NetworkHandler networkHandler = new NetworkHandler("http://localhost:8080");
     private final Stage stage;
 
@@ -90,14 +92,13 @@ public class MainWindow {
             }
         }).start());
 
-        // FlowPane root = new FlowPane(10, 10, btn, btn2, btnUpdate, tableView);
-
         AnchorPane root = new AnchorPane(btn, btn2, btnUpdate, tableView);
 
         Scene scene = new Scene(root, 750, 450);
-        stage.setTitle("My First JavaFX App");
+        stage.setTitle("Bug Tracker");
         stage.setScene(scene);
         stage.show();
+        logger.info("Main window ready to use");
     }
 
     private void prepareTable(TableView<BugResponse> tableView) {
@@ -123,5 +124,7 @@ public class MainWindow {
         TableColumn<BugResponse, State> columnState = new TableColumn<>("State");
         columnState.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().state()));
         tableView.getColumns().add(columnState);
+
+        logger.info("Table prepared");
     }
 }
