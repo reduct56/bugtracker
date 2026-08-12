@@ -44,6 +44,6 @@ public class BugService {
     }
 
     public List<Bug> getAll() {
-        return bugRepository.findAll();
+        return bugRepository.findAllByOrderByIdAsc();
     }
 }

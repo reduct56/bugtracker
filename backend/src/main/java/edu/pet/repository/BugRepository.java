@@ -6,10 +6,14 @@ import org.springframework.stereotype.Repository;
 import edu.pet.entity.Bug;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @Repository
 public interface BugRepository extends JpaRepository<Bug, Long> {
     default Bug findByIdOrThrow(Long id) {
         return findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Bug not found"));
     }
+
+    List<Bug> findAllByOrderByIdAsc();
 }
