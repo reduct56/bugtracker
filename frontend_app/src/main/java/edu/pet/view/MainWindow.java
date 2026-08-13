@@ -58,7 +58,7 @@ public class MainWindow {
         stage.setTitle("Bug Tracker");
         stage.setScene(scene);
         stage.show();
-        logger.info("Main window ready to use");
+        logger.info("Main window is ready");
     }
 
     private void prepareTable(TableView<BugResponse> tableView) {

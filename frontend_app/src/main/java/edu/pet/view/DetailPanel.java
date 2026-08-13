@@ -99,6 +99,8 @@ public class DetailPanel {
                 detailsHeader,
                 selectLabel,
                 subLayout);
+
+        logger.info("DetailPanel is ready");
     }
 
     public void setBug(BugResponse bug) {
@@ -120,6 +122,8 @@ public class DetailPanel {
 
         infoArea.setText(bug.info());
         infoArea.setEditable(false);
+
+        logger.debug("Bug set in detail panel");
     }
 
     public void clear() {
@@ -131,5 +135,7 @@ public class DetailPanel {
         subLayout.setVisible(false);
         selectLabel.setVisible(true);
         selectLabel.setManaged(true);
+
+        logger.debug("Detail panel cleared");
     }
 }

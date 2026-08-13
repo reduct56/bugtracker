@@ -37,7 +37,7 @@ public class AppService {
                 updateSingleEntry(selectedBug.id());
                 logger.info("Bug id={} closed", selectedBug.id());
             } catch (IOException | InterruptedException e) {
-                logger.error("Can't get server response on Close Bug action");
+                logger.error("Bad server response on Close Bug action");
             }
         }).start();
     }
@@ -54,7 +54,7 @@ public class AppService {
                 updateSingleEntry(selectedBug.id());
                 logger.info("Bug id={} re-opened", selectedBug.id());
             } catch (IOException | InterruptedException e) {
-                logger.error("Can't get server response on Re-open Bug action");
+                logger.error("Bad server response on Re-open Bug action");
             }
         }).start();
     }
@@ -66,7 +66,7 @@ public class AppService {
                 Platform.runLater(() -> bugList.setAll(list));
                 logger.info("Synced all with server");
             } catch (IOException | InterruptedException e) {
-                logger.error("Can't get server response on Update All action");
+                logger.error("Bad server response on Update All action");
             }
         }).start();
     }
@@ -86,7 +86,7 @@ public class AppService {
                 logger.warn("failed to find existing id in table - append");
             });
         } catch (IOException | InterruptedException e) {
-            throw new RuntimeException(e);
+            logger.error("Bad server response on updateSingleEntry [id={}] action", id);
         }
     }
 }
