@@ -21,6 +21,8 @@ public class DetailPanel {
 
     private final AppService appService;
 
+    private final Label selectLabel = new Label("Select bug from table");
+
     // Headers
     private final Label detailsHeader = new Label("Bug Details");
     private final Label titleHeader = new Label("Title");
@@ -42,8 +44,12 @@ public class DetailPanel {
     @Getter
     private VBox layout;
 
+    private VBox subLayout;
+
     public DetailPanel(AppService appService) {
         this.appService = appService;
+
+        selectLabel.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333333; -fx-border-color: black; -fx-border-width: 1 1 1 1;");
 
         detailsHeader.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #333333;");
         titleHeader.setStyle("-fx-font-size: 14px; -fx-text-fill: #666666; -fx-font-weight: bold;");
@@ -74,8 +80,8 @@ public class DetailPanel {
         layout.setPadding(new Insets(15));
         layout.setStyle("-fx-border-color: lightgray; -fx-border-width: 0 0 0 1;");
 
-        layout.getChildren().addAll(
-                detailsHeader,
+        subLayout = new VBox(3);
+        subLayout.getChildren().addAll(
                 idLabel,
                 titleHeader, titlelabel,
                 new HBox(10,
@@ -87,9 +93,19 @@ public class DetailPanel {
                                 stateComboBox)),
                 infoHeader, infoArea,
                 new HBox(5, markCloseButton, markOpenButton));
+        subLayout.setVisible(false);
+
+        layout.getChildren().addAll(
+                detailsHeader,
+                selectLabel,
+                subLayout);
     }
 
     public void setBug(BugResponse bug) {
+        selectLabel.setVisible(false);
+        selectLabel.setManaged(false);
+        subLayout.setVisible(true);
+
         idLabel.setText(bug.id().toString());
 
         titlelabel.setText(bug.title());
@@ -112,5 +128,8 @@ public class DetailPanel {
         priorityComboBox.setItems(null);
         stateComboBox.setItems(null);
         infoArea.clear();
+        subLayout.setVisible(false);
+        selectLabel.setVisible(true);
+        selectLabel.setManaged(true);
     }
 }
