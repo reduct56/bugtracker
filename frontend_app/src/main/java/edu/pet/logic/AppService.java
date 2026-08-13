@@ -78,6 +78,7 @@ public class AppService {
                 for (int i = 0; i < bugList.size(); i++ ){
                     if (bugList.get(i).id().equals(id)) {
                         bugList.set(i, item);
+                        tableView.getSelectionModel().select(i);
                         return;
                     }
                 }

@@ -22,25 +22,20 @@ import org.slf4j.LoggerFactory;
 public class MainWindow {
     private static final Logger logger = LoggerFactory.getLogger(MainWindow.class);
 
-    private final NetworkHandler networkHandler = new NetworkHandler("http://localhost:8080");
     private final Stage stage;
+    private final NetworkHandler networkHandler = new NetworkHandler("http://localhost:8080");
+
     private final ObservableList<BugResponse> bugList = FXCollections.observableArrayList();
     private final TableView<BugResponse> tableView = new TableView<>(bugList);
+
     private final AppService appService = new AppService(networkHandler, tableView, bugList);
+    private final DetailPanel detailPanel = new DetailPanel(appService);
 
     public MainWindow(Stage stage) {
         this.stage = stage;
     }
 
     public void init() {
-        Button btn = new Button("Close bug");
-        AnchorPane.setTopAnchor(btn, 10.0);
-        AnchorPane.setLeftAnchor(btn, 10.0);
-
-        Button btn2 = new Button("Re-Open bug");
-        AnchorPane.setTopAnchor(btn2, 10.0);
-        AnchorPane.setLeftAnchor(btn2, 100.0);
-
         Button btnUpdate = new Button("Update");
         AnchorPane.setTopAnchor(btnUpdate, 10.0);
         AnchorPane.setLeftAnchor(btnUpdate, 200.0);
@@ -49,16 +44,15 @@ public class MainWindow {
         AnchorPane.setTopAnchor(tableView, 80.0);
         AnchorPane.setLeftAnchor(tableView, 10.0);
 
-        // Close bug
-        btn.setOnAction(event -> appService.closeBug());
-
-        // Re-open bug
-        btn2.setOnAction(actionEvent -> appService.reopenBug());
-
         // Update all
         btnUpdate.setOnAction(actionEvent -> appService.updateAll());
 
-        AnchorPane root = new AnchorPane(btn, btn2, btnUpdate, tableView);
+        AnchorPane.setTopAnchor(detailPanel.getLayout(), 10.0);
+        AnchorPane.setBottomAnchor(detailPanel.getLayout(), 10.0);
+        AnchorPane.setRightAnchor(detailPanel.getLayout(), 10.0);
+        AnchorPane.setLeftAnchor(detailPanel.getLayout(), null);
+
+        AnchorPane root = new AnchorPane(btnUpdate, tableView, detailPanel.getLayout());
 
         Scene scene = new Scene(root, 750, 450);
         stage.setTitle("Bug Tracker");
@@ -70,11 +64,13 @@ public class MainWindow {
     private void prepareTable(TableView<BugResponse> tableView) {
         tableView.setPrefHeight(250);
         tableView.setPrefWidth(350);
+        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
 
         // ID
         TableColumn<BugResponse, Long> columnId = new TableColumn<>("ID");
         columnId.setCellValueFactory(cellData -> new SimpleLongProperty(cellData.getValue().id()).asObject());
         columnId.setSortable(false);
+        columnId.setPrefWidth(25);
         tableView.getColumns().add(columnId);
 
         // Title
@@ -94,6 +90,20 @@ public class MainWindow {
         columnState.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().state()));
         columnState.setSortable(false);
         tableView.getColumns().add(columnState);
+
+        // sync with server
+        appService.updateAll();
+
+
+        tableView.getSelectionModel().selectedItemProperty().addListener(
+                (observableValue, oldSelection, newSelection)
+                        -> {
+                            if (newSelection != null) {
+                                detailPanel.setBug(newSelection);
+                            } else {
+                                detailPanel.clear();
+                            }
+                        });
 
         logger.info("Table prepared");
     }
