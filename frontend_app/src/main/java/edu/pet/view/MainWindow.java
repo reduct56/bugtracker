@@ -37,17 +37,17 @@ public class MainWindow {
 
     public void init() {
         Button btnUpdate = new Button("Update");
-        AnchorPane.setTopAnchor(btnUpdate, 10.0);
-        AnchorPane.setLeftAnchor(btnUpdate, 200.0);
+        AnchorPane.setTopAnchor(btnUpdate, 0.0);
+        AnchorPane.setLeftAnchor(btnUpdate, 10.0);
 
         prepareTable(tableView);
-        AnchorPane.setTopAnchor(tableView, 80.0);
+        AnchorPane.setTopAnchor(tableView, 30.0);
         AnchorPane.setLeftAnchor(tableView, 10.0);
 
         // Update all
         btnUpdate.setOnAction(actionEvent -> appService.updateAll());
 
-        AnchorPane.setTopAnchor(detailPanel.getLayout(), 10.0);
+        AnchorPane.setTopAnchor(detailPanel.getLayout(), 0.0);
         AnchorPane.setBottomAnchor(detailPanel.getLayout(), 10.0);
         AnchorPane.setRightAnchor(detailPanel.getLayout(), 10.0);
         AnchorPane.setLeftAnchor(detailPanel.getLayout(), null);

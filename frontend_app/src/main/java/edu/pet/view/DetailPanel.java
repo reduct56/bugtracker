@@ -46,6 +46,8 @@ public class DetailPanel {
 
     private VBox subLayout;
 
+    private boolean isBugClosed;
+
     public DetailPanel(AppService appService) {
         this.appService = appService;
 
@@ -104,6 +106,9 @@ public class DetailPanel {
     }
 
     public void setBug(BugResponse bug) {
+        markCloseButton.setDisable(bug.state() == State.CLOSED);
+        markOpenButton.setDisable(bug.state() == State.OPEN);
+
         selectLabel.setVisible(false);
         selectLabel.setManaged(false);
         subLayout.setVisible(true);
