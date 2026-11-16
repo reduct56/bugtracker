@@ -59,6 +59,7 @@ ___
 **2. Создать `.env` и указать DB_USER и DB_PASSWORD **
 
 **3. Создание образа**
+
 ```docker build myproject:spring -t```
 
 **4. Запуск**
