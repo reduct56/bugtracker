@@ -11,7 +11,7 @@ ___
 - **Десктоп приложение**: JavaFX
 - **СУБД**: PostgreSQL
 - **Вспомогательные библиотеки**: Jackson, Lombok, SLF4J
-- **Сборка**: Maven, многомодульный проект
+- **Сборка**: Docker, Docker compose, Maven(многомодульный проект)
 ___
 ### Схема работы приложения
 ![img_3.png](gitfiles/img_3.png)
@@ -50,7 +50,22 @@ bugtracker/
 ```
 ___
 
-### Установка и запуск
+### Установка и запуск (Docker)
+
+**1. Склонировать репозиторий**:
+
+```git clone https://github.com/reduct56/bugtracker.git```
+
+**2. Создать `.env` и указать DB_USER и DB_PASSWORD **
+
+**3. Создание образа**
+```docker build myproject:spring -t```
+
+**4. Запуск**
+
+```docker compose up -d```
+
+### Установка и запуск (ручная сборка через Maven)
 
 **Требования**:
 1. Java 21+
